@@ -1,0 +1,536 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--title-->
+    <title>Home | The Beauty Store</title>
+
+    <!--icon-->
+    <link href="data/assets/tbs.ico" type="images/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--styles-->
+    <link rel="stylesheet" href="data/css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body onload="getCustomers()" id="homepage" class="body_div" style="margin: 0;">
+
+    <div>
+
+        <header id="header">
+
+            <div class="header1">
+                <div class="header-data">
+                    50% off on all skincare this weekend - Enter code TBS50
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 header2 no-padding">
+                <div class="title-2 col-md-4 col-sm-4 hidden-xs"><input type="text" id="searchInput"
+                        onkeyup="searchbar()" placeholder="Search for products.." title="Type in a name"></div>
+                <div class="title-2 col-md-5 col-sm-5 col-xs-10">The Beauty Store 
+                    <a onclick="setData()"><i class="glyphicon glyphicon-refresh"></i></a></div>
+                <div class="title-2 col-md-3 col-sm-3 col-xs-2 text-end">
+                    <a name="loggedIn" onclick="options('user')" id="user-panel" style="color: #fff;"
+                        class="menu-list"><i style="font-size: 15px;" class="fa fa-user"></i></a>
+                    <a name="loggedOut" data-toggle="modal" data-target="#myModal" style="color: #fff;"
+                        class="menu-list"><i style="font-size: 15px;" class="glyphicon glyphicon-log-in"></i></a>
+                </div>
+                <div class="title-2 show-on-xs col-xs-12"><input type="text" id="searchInput" onkeyup="searchbar()"
+                        placeholder="Search for products.." title="Type in a name">
+                </div>
+                <ul id="products" class="transform"></ul>
+
+
+                <!-- Modal -->
+                <div class="modal login-modal fade text-center" id="myModal" role="dialog">
+                    <div class="modal-dialog login-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <nav class="navbar navbar-inverse">
+                                <div class="container-fluid">
+                                    <ul class="nav navbar-nav navbar-left">
+                                        <li><a id="login-tab" class="active-tab" onclick="toggle('login')"><span
+                                                    class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                                        <li><a id="signup-tab" onclick="toggle('signup')"><span
+                                                    class="glyphicon glyphicon-user"></span> Register</a></li>
+                                    </ul>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li><a href="#" data-dismiss="modal"><span
+                                                    class="glyphicon glyphicon-remove"></span></a></li>
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="login_content_div">
+                                <div>
+                                    <div id="login-form">
+                                        <form method="POST">
+                                            <div class="form-group text-start">
+                                                <label for="email">Email:</label>
+                                                <input type="email" class="form-control" id="email"
+                                                    placeholder="Enter email" name="email" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="pwd">Password:</label>
+                                                <input type="password" class="form-control" id="password"
+                                                    placeholder="Enter password" name="pwd" required>
+                                            </div>
+                                            <button type="button" onclick="login()"
+                                                style="width: 100%;background-color: #222;"
+                                                class="banner-button mg-tp-10">LOGIN</button>
+                                            <div id="l_success_message" name="snackbar" class="hide-snackbar"></div>
+                                            <div id="l_error_message" name="snackbar" class="hide-snackbar"></div>
+                                        </form>
+                                    </div>
+                                    <div class="display-none" id="signup-form">
+                                        <form method="POST">
+                                            <div class="form-group text-start">
+                                                <input onclick="currentUser('admin')" type="radio" name="userType" required>
+                                                <label for="firstname">Admin</label>
+                                                <input onclick="currentUser('customer')" type="radio" name="userType" class="mg-l-12-perc" required>
+                                                <label for="firstname">Customer</label>
+                                            </div>
+                                            <div id="admin-options" style="display: none;" class="form-group text-start">
+                                                <input id="authKey" type="password" class="form-control" style="opacity: 0.5;" placeholder="Authorization Key" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="firstname">Firstname:</label>
+                                                <input type="text" class="form-control" id="firstname"
+                                                    placeholder="Firstname" name="firstname" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="lastname">Lastname:</label>
+                                                <input type="text" class="form-control" id="lastname"
+                                                    placeholder="Lastname" name="lastname" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="reg-email">Email:</label>
+                                                <input type="email" class="form-control" id="reg-email"
+                                                    placeholder="Enter email" name="reg-email" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="pass">Password:</label>
+                                                <input type="password" class="form-control" id="pass"
+                                                    placeholder="Enter password" name="pass" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="cpass">Confirm Password:</label>
+                                                <input type="password" class="form-control" id="confirm-pass"
+                                                    placeholder="Confirm password" name="cpass" required>
+                                            </div>
+                                            <button type="button" onclick="register()"
+                                                style="width: 100%;background-color: #222;"
+                                                class="banner-button mg-tp-10">REGISTER</button>
+                                            <div id="s_success_message" name="snackbar" class="hide-snackbar"></div>
+                                            <div id="s_error_message" name="snackbar" class="hide-snackbar"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="loggedin-menu" name="loggedIn" class="menu text-center">
+                    <a href="Launch.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Home</a>
+                    <a onclick="options('catalogue')" class="menu-list col-md-3 col-sm-3 col-xs-3">Catalogue <i
+                            style="font-size: 15px;" class="fa fa-chevron-down"></i></a>
+                    <a href="./data/html/blog.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Blog</a>
+                    <a href="./data/html/cart.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Cart</a>
+                </div>
+                <div id="logout-menu" name="loggedOut" class="menu text-center">
+                    <a href="Launch.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Home</a>
+                    <a onclick="options('catalogue')" class="menu-list col-md-3 col-sm-3 col-xs-3">Catalogue <i
+                            style="font-size: 15px;" class="fa fa-chevron-down"></i></a>
+                    <a href="./data/html/blog.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Blog</a>
+                    <a class="menu-list col-md-3 col-sm-3 col-xs-3 isDisabled hover-link">Cart
+                        <p>login required!</p>
+                    </a>
+                </div>
+
+
+                <div id="user" class="transform">
+                    <ul class="menu-options text-start">
+                        <li class="pd-10-0"><a href="./data/html/profile.html" class="menu-option hover-white"><i style="font-size: 15px;"
+                                    class="fa fa-user-circle-o"></i> PROFILE</a></li>
+                        <li class="pd-10-0"><a class="menu-option hover-white" onclick="signout()"><i
+                                    style="font-size: 15px;" class="fa fa-sign-out"></i> LOGOUT</a></li>
+                    </ul>
+                </div>
+
+                <div id="catalogue" class="menu-open" style="display: none;">
+                    <ul class="menu-options">
+                        <li class="pd-10-0"><a href="./data/html/skincare.html" class="menu-option">SKIN CARE</a></li>
+                        <li class="pd-10-0"><a href="./data/html/makeup.html" class="menu-option">MAKEUP</a></li>
+                        <li class="pd-10-0"><a href="./data/html/haircare.html" class="menu-option">HAIR CARE</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </header>
+
+
+        <div class="content_div col-md-12 col-sm-12 col-xs-12 no-padding">
+            <div class="content1">
+                <div class="banner">
+                    <label class="text-center total-width">THE NEW AND THE NATURAL</label>
+                    <div class="banner-content">
+                        The best all natural Skincare range
+                        for a new healthier you.
+                    </div>
+                    <button onclick="openPage('skincare')" class="banner-button">SHOP COLLECTION</button>
+                </div>
+            </div>
+
+
+            <div class="container content4  hidden-xs">
+                <h2 class="text-center title1 ">NEW ARRIVALS</h2>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <a onclick="openProduct('m10',22)" class="new-arrival">
+                                <img class=" image-file" src="data/assets/makeup-products/11.png" alt="Chicago"
+                                style="width:100%;">
+                            </a>
+                            <a onclick="openProduct('m7',19)" class="new-arrival">
+                                <img class=" image-file" src="data/assets/makeup-products/8.png" alt="Chicago"
+                                style="width:100%;">
+                            </a>
+                            <a onclick="openProduct('m2',14)" class="new-arrival">
+                                <img class=" image-file" src="data/assets/makeup-products/3.png" alt="Chicago"
+                                style="width:100%;">
+                            </a>
+                            <a onclick="openProduct('m5',17)" class="new-arrival">
+                                <img class=" image-file" src="data/assets/makeup-products/6.png" alt="Chicago"
+                                style="width:100%;">
+                            </a>
+                        </div>
+
+                        <div class="item">
+                            <a onclick="openProduct('sc7',31)" class="new-arrival">
+                                <img class=" image-file" src="data/assets/homepage-images/10.png" alt="Chicago"
+                                style="width:100%;">
+                            </a>
+                            <a onclick="openProduct('sc1',25)" class="new-arrival">
+                                <img class=" image-file" src="data/assets/homepage-images/11.png" alt="Chicago"
+                                style="width:100%;">
+                            </a>
+                            <a onclick="openProduct('sc0',24)" class="new-arrival">
+                                <img class=" image-file" src="data/assets/homepage-images/12.png" alt="Chicago"
+                                style="width:100%;">
+                            </a>
+                            <a onclick="openProduct('sc3',27)" class="new-arrival">
+                                <img class=" image-file" src="data/assets/homepage-images/13.png" alt="Chicago"
+                                style="width:100%;">
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="container content4  show-on-xs">
+                <h2 class="text-center title1 ">NEW ARRIVALS</h2>
+                <div id="myCarousel2" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel2" data-slide-to="1"></li>
+                        <li data-target="#myCarousel2" data-slide-to="2"></li>
+                        <li data-target="#myCarousel2" data-slide-to="3"></li>
+                        <li data-target="#myCarousel2" data-slide-to="4"></li>
+                        <li data-target="#myCarousel2" data-slide-to="5"></li>
+                        <li data-target="#myCarousel2" data-slide-to="6"></li>
+                        <li data-target="#myCarousel2" data-slide-to="7"></li>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner show-on-xs">
+                        <a onclick="openProduct('m10',22)" class="item active show-on-xs">
+                            <img class="image-file-2" src="data/assets/makeup-products/11.png" alt="Chicago"">
+                        </a>
+                        <a onclick="openProduct('m7',19)" class=" item show-on-xs">
+                            <img class="image-file-2" src="data/assets/makeup-products/8.png" alt="Chicago"">
+                        </a>
+                        <a onclick="openProduct('m2',14)" class=" item show-on-xs">
+                            <img class="image-file-2" src="data/assets/makeup-products/3.png" alt="Chicago"">
+                        </a>
+                        <a onclick="openProduct('m5',17)" class=" item show-on-xs">
+                            <img class="image-file-2" src="data/assets/makeup-products/6.png" alt="Chicago"">
+                        </a>
+                        <a onclick="openProduct('sc7',31)" class=" item show-on-xs">
+                            <img class="image-file-2" src="data/assets/homepage-images/10.png" alt="Chicago"">
+                        </a>
+                        <a onclick="openProduct('sc1',25)" class=" item show-on-xs">
+                            <img class="image-file-2" src="data/assets/homepage-images/11.png" alt="Chicago"">
+                        </a>
+                        <a onclick="openProduct('sc0',24)" class=" item show-on-xs">
+                            <img class="image-file-2" src="data/assets/homepage-images/12.png" alt="Chicago"">
+                        </a>
+                        <a onclick="openProduct('sc3',27)" class=" item show-on-xs">
+                            <img class="image-file-2" src="data/assets/homepage-images/13.png" alt="Chicago"">
+                        </a>
+                    </div>           
+
+                    <!-- Left and right controls -->
+                    <a class=" left carousel-control" href="#myCarousel2" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel2" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="content3 col-md-12 col-sm-12 col-xs-12 no-padding">
+                    <div class="col-md-6 col-sm-6 col-xs-12 no-padding leafs">
+                        <div class="on-sale">
+                            <label class="text-center total-width">50% OFF SUMMER SALE</label>
+                            <div class="banner-content">
+                                Save even more on our Summer Sale <br> using code TBS50 + Free
+                                shipping on orders above <br>
+                                $50
+                            </div>
+                            <button onclick="openPage('makeup')" class="banner-button">SHOP SALE</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 ">
+                        <div class="sale hidden-xs">
+                            <label class="text-center total-width">50% OFF SUMMER SALE</label>
+                            <div class="banner-content">
+                                Save even more on our Summer Sale <br> using code TBS50 + Free
+                                shipping on orders above <br>
+                                $50
+                            </div>
+                            <button onclick="openPage('makeup')" class="banner-button">SHOP SALE</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content4 col-md-12 col-sm-12 col-xs-12 no-padding">
+                    <div class="title1 col-md-12 col-sm-12 col-xs-12">NEW ARRIVALS</div>
+                    <div class="list-2 mg-l-18-perc">
+                        <div id="arrival-5" class="items2 arrival-5">
+                            <!-- MAKEUP PRODUCTS -->
+                            <div id="hover5">
+                                <div>SPRING PALETTES</div>
+                                <a href="./data/html/makeup.html" class="view-more">VIEW MORE</a>
+                            </div>
+                        </div>
+                        <div id="arrival-6" class="items2 arrival-6 mid-item2">
+                            <!-- HAIR PRODUCTS -->
+                            <div id="hover6">
+                                <div>HAIR ESSENTIALS</div>
+                                <a href="./data/html/haircare.html" class="view-more">VIEW MORE</a>
+                            </div>
+                        </div>
+                        <div id="arrival-7" class="items2 arrival-7">
+                            <!-- SKIN PRODUCTS -->
+                            <div id="hover7">
+                                <div>CORRECT ANS CONCEIL</div>
+                                <a href="./data/html/skincare.html" class="view-more">VIEW MORE</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <video autoplay muted loop id="home-video" style="width: 100%;">
+                    <source src="./data/assets/video.mp4" type="video/mp4">
+                </video>
+                <div class="video-content">
+                    <button onclick="openPage('skincare')" style="margin: 30px auto; width: 70%; padding: 15px 0;"
+                        class="view-button">SHOP COLLECTION</button>
+                </div>
+
+                <div class="content5 col-md-12 col-sm-12 col-xs-12 no-padding">
+                    <div class="box1">
+                        <div class="follow-content text-start">
+                            <label class="total-width">FRUIT PASTELS: SPRING MAKEUP TRENDS</label><br><br>
+                            Natural Palettes inspired by nature’s
+                            pastels<br><br><a onclick="openBlogs('5')" class="read-more">READ MORE</a>
+                        </div>
+                    </div>
+                    <div class="box2"></div>
+                </div>
+                <div class="content4 col-md-12 col-sm-12 col-xs-12 no-padding">
+                    <div class="title1 col-md-12 col-sm-12 col-xs-12">SKIN CARE BESTSELLERS</div>
+                    <div class="list col-md-12 col-sm-12 col-xs-12">
+                        <a onclick="openProduct('sc7',31)" class="items3 arrival-8 mg-l-12-perc"></a>
+                        <a onclick="openProduct('sc1',25)" class="items3 arrival-9 mid-item2"></a>
+                        <a onclick="openProduct('sc0',24)" class="items3 arrival-10 mg-perc-rt-1"></a>
+                        <a onclick="openProduct('sc3',27)" class="items3 arrival-11"></a>
+                    </div>
+                </div>
+                <div class="content6 col-md-12 col-sm-12 col-xs-12 no-padding">
+                    <div class="title1 pd-60">BLOG POST</div>
+                    <div class="list-2 mg-l-18-perc blog-xs">
+                        <div class="items4 blog-1">
+                            <img class="hidden-xs" src="data/assets/homepage-images/transparent.png" />
+                            <div>
+                                <label style="display: block;min-height: 50px;" class="text-center blog-label">FUTURE
+                                    TONES
+                                    - BLAZING
+                                    BRONZERS</label>
+                                <div>
+                                    <small class="gray-content">APRIL 29, 2020</small>
+                                    <div class="blog-details text-overflow">From bronzers that enhance your tan
+                                        to
+                                        ones that
+                                        help you contour
+                                        like a pro. Check out our pick of the creme de le creme of bronzers.
+                                    </div>
+                                    <a onclick="openBlogs('0')" class="read-more">READ MORE</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="items4 mid-item2 blog-2">
+                            <img class="hidden-xs" src="data/assets/homepage-images/transparent.png" />
+                            <div>
+                                <label style="display: block;min-height: 50px;" class="text-center blog-label">ROUTINE
+                                    REBELS - BEAUTY
+                                    TIPS</label>
+                                <div>
+                                    <small class="gray-content">APRIL 29, 2020</small>
+                                    <div class="blog-details text-overflow">From bronzers that enhance your tan
+                                        to
+                                        ones that
+                                        help you contour
+                                        like a pro. Check out our pick of the creme de le creme of bronzers.
+                                    </div>
+                                    <a onclick="openBlogs('1')" class="read-more">READ MORE</a>
+                                </div>
+                                <div class="hidden-xs">
+                                    <button onclick="openBlogs('0')" class="view-button">VIEW MORE</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="items4 blog-3">
+                            <img class="hidden-xs" src="data/assets/homepage-images/transparent.png" />
+                            <div>
+                                <label style="display: block;min-height: 50px;" class="text-center blog-label">BEAUTY
+                                    BUYS - MUST HAVES IN YOUR BAG THIS FALL</label>
+                                <div>
+                                    <small class="gray-content">APRIL 29, 2020</small>
+                                    <div class="blog-details text-overflow">From bronzers that enhance your tan
+                                        to ones that help you contour like a pro. Check out our pick of the creme de
+                                        le creme of bronzers.
+                                    </div>
+                                    <a onclick="openBlogs('2')" class="read-more">READ MORE</a>
+                                </div>
+                                <div class="show-on-xs">
+                                    <button onclick="openBlogs('0')" class="view-button">VIEW MORE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content7 col-md-10 col-sm-10 col-xs-12 col-md-offset-1 col-sm-offset-1 no-padding">
+                    <div class="title1 pd-60">FEATURED IN</div>
+                    <div class="col-md-3 col-sm-3 hidden-sm">
+                        <img class="brand-img" src="data/assets/homepage-images/17.png" />
+                    </div>
+                    <div class="col-md-3 col-sm-3 hidden-sm mg-t-25">
+                        <img class="brand-img" src="data/assets/homepage-images/18.png" />
+                    </div>
+                    <div class="col-md-3 col-sm-3 hidden-sm">
+                        <img class="brand-img" src="data/assets/homepage-images/19.png" />
+                    </div>
+                    <div class="col-md-3 col-sm-3 hidden-sm">
+                        <img class="brand-img" src="data/assets/homepage-images/20.png" />
+                    </div>
+                    <div class="show-on-sm">
+                        <ul class="list-style featured-list">
+                            <li>Forbes</li>
+                            <li>InStyle</li>
+                            <li>VOGUE</li>
+                            <li>allure</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content8 col-md-12 col-sm-12 col-xs-12 no-padding">
+                    <div class="content8 col-md-6 col-sm-6 col-xs-6">
+                        <div class="insta-box"></div>
+                    </div>
+                    <div class="content8 col-md-6 col-sm-6 col-xs-6">
+                        <div class="insta-content">
+                            <label class="text-center total-width">FOLLOW US ON INSTA</label>
+                            <div class="banner-content">
+                                Follow us on Instagram for daily news motivation and inspiration in the big
+                                world of beauty and wellness.<br><br><span class="mid">FOLLOW US ON
+                                    <a href="./data/html/insta.html">@BeautyStore</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content9 col-md-12 col-sm-12 col-xs-12 no-padding "></div>
+            </div>
+            <div class="content10 footer-div col-md-12 col-sm-12 col-xs-12 no-padding ">
+                <div class="col-md-5 col-sm-5 col-xs-6 footer-content text-start">
+                    <div>THE BEAUTY STORE</div>
+                    <div class="footer-list"> <br>
+                        <p style="color: #33333382;">© THE BEAUTY STORE , Inc. All rights Resevered.</p>
+                    </div>
+                    <div class="footer-icons">
+                        <a><img src="data/assets/homepage-icons/ic_insta.png" /></a>
+                        <a><img src="data/assets/homepage-icons/ic_fb.png" /></a>
+                        <a><img src="data/assets/homepage-icons/ic_twitter.png" /></a>
+                    </div>
+                </div>
+                <div id="footer-info" class="col-md-3 col-sm-3 col-xs-6 footer-content footer-text">
+                    <div>INFO</div>
+                    <div class="footer-list">
+                        <ul class="list-style">
+                            <li><a href="./data/html/about.html" class="menu-option">About</a></li>
+                            <li><a href="./data/html/contact.html" class="menu-option">Contact</a></li>
+                            <li><a href="./data/html/privacy.html" class="menu-option">Privacy Policy</a></li>
+                            <li><a href="./data/html/tnc.html" class="menu-option">Terms & Conditions</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 footer-content text-end">
+                    <div class="text-end">SUBSCRIBE</div>
+                    <div class="footer-list">Sign up to our mailing list</div>
+                    <div class="footer-list">
+                        <input style="width: 80%;" class="text-input text-start" type="email" />
+                        <button style="width: 15%;" class="ok">OK</button>
+                    </div>
+                    <div class="footer-icons text-end">
+                        <a><img src="data/assets/homepage-icons/ic_apple.png" /></a>
+                        <a><img src="data/assets/homepage-icons/ic_visa.png" /></a>
+                        <a><img src="data/assets/homepage-icons/ic_mastrcard.png" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--script files-->
+        <script src="data/js/main.js"></script>
+        <script src="data/js/search.js"></script>
+        <script src="data/js/products.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

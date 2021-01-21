@@ -1,0 +1,391 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--title-->
+    <title>Blog | The Beauty Store</title>
+
+    <!--icon-->
+    <link href="../assets/tbs.ico" type="images/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--styles-->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body onload="getBlog(),showComments()" id="blogpage" class="body_div" style="margin: 0;">
+
+    <div>
+
+        <header id="header">
+
+            <div class="header1">
+                <div class="header-data">
+                    50% off on all skincare this weekend - Enter code TBS50
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 header2 no-padding">
+                <div class="title-2 col-md-4 col-sm-4 hidden-xs"><input type="text" id="searchInput"
+                    onkeyup="searchbar()" placeholder="Search for products.." title="Type in a name"></div>
+            <div class="title-2 col-md-4 col-sm-4 col-xs-10">The Beauty Store</div>
+            <div class="title-2 col-md-4 col-sm-4 col-xs-2 text-end">
+                <a name="loggedIn" onclick="options('user')" id="user-panel" style="color: #fff;"
+                    class="menu-list"><i style="font-size: 15px;" class="fa fa-user"></i></a>
+                <a name="loggedOut" data-toggle="modal" data-target="#myModal" style="color: #fff;"
+                    class="menu-list"><i style="font-size: 15px;" class="glyphicon glyphicon-log-in"></i></a>
+            </div>
+            <div class="title-2 show-on-xs col-xs-12"><input type="text" id="searchInput" onkeyup="searchbar()"
+                    placeholder="Search for products.." title="Type in a name">
+            </div>
+            <ul id="products" class="transform"></ul>
+
+                <!-- Modal -->
+                <div class="modal login-modal fade text-center" id="myModal" role="dialog">
+                    <div class="modal-dialog login-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <nav class="navbar navbar-inverse">
+                                <div class="container-fluid">
+                                    <ul class="nav navbar-nav navbar-left">
+                                        <li><a id="login-tab" class="active-tab" onclick="toggle('login')"><span
+                                                    class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                                        <li><a id="signup-tab" onclick="toggle('signup')"><span
+                                                    class="glyphicon glyphicon-user"></span> Register</a></li>
+                                    </ul>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li><a href="#" data-dismiss="modal"><span
+                                                    class="glyphicon glyphicon-remove"></span></a></li>
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="login_content_div">
+                                <div>
+                                    <div id="login-form">
+                                        <form method="POST">
+                                            <div class="form-group text-start">
+                                                <label for="email">Email:</label>
+                                                <input type="email" class="form-control" id="email"
+                                                    placeholder="Enter email" name="email">
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="pwd">Password:</label>
+                                                <input type="password" class="form-control" id="password"
+                                                    placeholder="Enter password" name="pwd">
+                                            </div>
+                                            <button type="button" onclick="login()"
+                                                style="width: 100%;background-color: #222;"
+                                                class="banner-button mg-tp-10">LOGIN</button>
+                                            <div id="l_success_message" name="snackbar" class="hide-snackbar"></div>
+                                            <div id="l_error_message" name="snackbar" class="hide-snackbar"></div>
+                                        </form>
+                                    </div>
+                                    <div class="display-none" id="signup-form">
+                                        <form method="POST">
+                                            <div class="form-group text-start">
+                                                <input onclick="currentUser('admin')" type="radio" name="userType" required>
+                                                <label for="firstname">Admin</label>
+                                                <input onclick="currentUser('customer')" type="radio" name="userType" class="mg-l-12-perc" required>
+                                                <label for="firstname">Customer</label>
+                                            </div>
+                                            <div id="admin-options" style="display: none;" class="form-group text-start">
+                                                <input id="authKey" type="password" class="form-control" style="opacity: 0.5;" placeholder="Authorization Key" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="firstname">Firstname:</label>
+                                                <input type="text" class="form-control" id="firstname"
+                                                    placeholder="Firstname" name="firstname" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="lastname">Lastname:</label>
+                                                <input type="text" class="form-control" id="lastname"
+                                                    placeholder="Lastname" name="lastname" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="reg-email">Email:</label>
+                                                <input type="email" class="form-control" id="reg-email"
+                                                    placeholder="Enter email" name="reg-email" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="pass">Password:</label>
+                                                <input type="password" class="form-control" id="pass"
+                                                    placeholder="Enter password" name="pass" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="cpass">Confirm Password:</label>
+                                                <input type="password" class="form-control" id="confirm-pass"
+                                                    placeholder="Confirm password" name="cpass" required>
+                                            </div>
+                                            <button type="button" onclick="register()"
+                                                style="width: 100%;background-color: #222;"
+                                                class="banner-button mg-tp-10">REGISTER</button>
+                                            <div id="s_success_message" name="snackbar" class="hide-snackbar"></div>
+                                            <div id="s_error_message" name="snackbar" class="hide-snackbar"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="loggedin-menu" name="loggedIn" class="menu text-center">
+                    <a href="../../Launch.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Home</a>
+                    <a onclick="options('catalogue')" class="menu-list col-md-3 col-sm-3 col-xs-3">Catalogue <i
+                            style="font-size: 15px;" class="fa fa-chevron-down"></i></a>
+                    <a href="../html/blog.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Blog</a>
+                    <a href="../html/cart.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Cart</a>
+                </div>
+                <div id="logout-menu" name="loggedOut" class="menu text-center">
+                    <a href="../../Launch.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Home</a>
+                    <a onclick="options('catalogue')" class="menu-list col-md-3 col-sm-3 col-xs-3">Catalogue <i
+                            style="font-size: 15px;" class="fa fa-chevron-down"></i></a>
+                    <a href="../html/blog.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Blog</a>
+                    <a class="menu-list col-md-3 col-sm-3 col-xs-3 isDisabled hover-link">Cart
+                        <p>login required!</p>
+                    </a>
+                </div>
+
+                <div id="user" class="transform">
+                    <ul class="menu-options text-start">
+                        <li class="pd-10-0"><a href="./profile.html" class="menu-option hover-white"><i style="font-size: 15px;"
+                                    class="fa fa-user-circle-o"></i> PROFILE</a></li>
+                        <li class="pd-10-0"><a class="menu-option hover-white" onclick="signout()"><i
+                                    style="font-size: 15px;" class="fa fa-sign-out"></i> LOGOUT</a></li>
+                    </ul>
+                </div>
+
+                <div id="catalogue" class="menu-open" style="display: none;">
+                    <ul class="menu-options">
+                        <li class="pd-10-0"><a href="./skincare.html" class="menu-option">SKIN CARE</a></li>
+                        <li class="pd-10-0"><a href="./makeup.html" class="menu-option">MAKEUP</a></li>
+                        <li class="pd-10-0"><a href="./haircare.html" class="menu-option">HAIR CARE</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </header>
+
+
+        <div class="blog">
+            <div id="b1" class="blog-content" name="blog">
+                <h3>FUTURE TONES - BLAZING BRONZERS</h3>
+                <small class="gray-content display-block">APRIL 29, 2020</small><br>
+                <img src="../assets/homepage-images/14.webp" alt="image" class="blog-image" />
+                <p class="mg-30-0 text-justify">
+                    From bronzers that enhance your tan to ones that help you contour like a pro, check out our pick of the creme de le creme of bronzers to add a little sunshine into your makeup bag - no matter the forecast this summer.
+                </p>
+                <p class="mg-30-0 text-justify">
+                    Want to enhance your complexion without damaging your skin? Well, bronzer is your answer. As the old adage goes, you must fake it till you make it and there's a bevy of glow-getting products out there to help you achieve this. 
+                </p>
+                <p class="mg-30-0 text-justify">
+                    The Summer is finally here and that means only one thing: it’s time to ditch the winter attire, flash your legs with your favourite skirt and, of course, play around with makeup as well! As fall teaches us, it’s hard to think about having fun with makeup since the harsh temperature just makes you want to crawl back under the blanket. Well, all that is about to change now with the warm sun being upon us.
+                </p>
+                <p class="mg-30-0 text-justify">
+                    Spring/summer 2019 catwalks have revealed some intriguing trends that you can expect popping out this year both in the makeup isles as well as in Instagram. 2019 summer brings us even more colors – vivid, bold, bright are the keywords to think about. At the same time though, naked eye makeup is preferred. Looks like the time of long lashes is over!
+                </p>
+            </div>
+            <div id="b2" class="blog-content" name="blog">
+                <h3>ROUTINE REBELS - BEAUTY TIPS</h3>
+                <small class="gray-content display-block">APRIL 29, 2020</small><br>
+                <img src="../assets/homepage-images/15.webp" alt="image" class="blog-image" />
+                <p class="mg-30-0 text-justify">
+                    Sasha, who is almost 32, is one of YouTube’s most-known success stories and arguably one of the most popular and recognizable beauty gurus on the platform, with almost 10 million subscribers and well over a billion views of her videos.
+                </p>
+                <p class="mg-30-0 text-justify">
+                    “I was waking up feeling so lost. I didn’t know why.”
+                </p>
+                <p class="mg-30-0 text-justify">
+                    Blanco, who is successful in her field, if not at the very top of it. At the beginning of 2016, she landed on the covers of Vogue and Nylon, lauded for her success both online and off. She should have been damn pleased with herself at that point. But that’s not how she felt.
+                </p>
+                <p class="mg-30-0 text-justify">
+                    “I peaced out because I think I was going through depression. I don’t know because I didn’t go to a hospital or anything or get diagnosed, but I was taking a few quizzes online and I felt really sad every day,” Banco says. Of her dual covers, she muses: “You would think, You should be happy. But I wasn’t. I was waking up feeling so broken. I didn’t know why.”
+                </p>
+                <p class="mg-30-0 text-justify">
+                    After speaking to Bianco for an hour, I noticed her palpable sense of relief about the decision to move behind the scenes and away from being in front of the camera. She won’t miss the commenter trolls either, one of whom wrote terrible things on her videos, then showed up at an event bearing a teddy bear for her. Even her mom and extended family get recognized now.
+                </p>
+            </div>
+            <div id="b3" class="blog-content" name="blog">
+                <h3>BEAUTY BUYS - MUST HAVES IN YOUR BAG THIS FALL</h3>
+                <small class="gray-content display-block">APRIL 29, 2020</small><br>
+                <img src="../assets/homepage-images/16.webp" alt="image" class="blog-image" />
+                <p class="mg-30-0 text-justify">
+                    Whether it's soothing your skin with a new serum or giving your hair a much-needed boost, we've got you covered for the beauty-buys you need to restore you to your pre-Summer self.
+                </p>
+                <p class="mg-30-0 text-justify">
+                    VENUS VARDA OAT AND JUNIPER HAND CREAM — $28
+                </p>
+                <p class="mg-30-0 text-justify">
+                    Enriched with Shea Butter and Vitamin E, Venus Varda Hand Cream nourishes and protects hands from daily aggressions. They are soft, moisturised and delicately perfumed with Cherry Blossom’s fresh and floral scent.This versatile moisturizer can be used on the face, hands or body.
+                </p>
+                <p class="mg-30-0 text-justify">
+                    WHITEWATER REPAIR MASK — $40
+                </p>
+                <p class="mg-30-0 text-justify">
+                    This benefit-packed tinted moisturizer delivers lightweight hydration, a hint of sheer coverage, SPF 20 protection, and a luminous dewy glow. It also includes black currant, peony flower root extract, and vitamin C to enhance skin brightness and sodium hyaluronate to promote firmer, smoother-looking skin.
+                </p>
+                <p class="mg-30-0 text-justify">
+                    MICROHABITAT REJUVINATING MASK — $24
+                </p>
+                <p class="mg-30-0 text-justify">
+                    An intensive mask to restore, replenish and rejuvenate hair. Designed to quickly transform weak, dull, aged hair into strong, radiant and youthful looking hair. With eight of the most technologically advanced anti-ageing ingredients and is designed to reverse the visible signs of ageing leaving hair looking strong, radiant and youthful.
+                </p>
+            </div>
+            <div id="b4" class="blog-content" name="blog">
+                <h3>GANG GLOW - OUR 5 ESSENTIALS EYE SHADOW PALETTES</h3>
+                <small class="gray-content display-block">APRIL 29, 2020</small><br>
+                <img src="../assets/homepage-images/23.jpg" alt="image" class="blog-image" />
+                <p class="mg-30-0 text-justify">
+                    We all love new eyeshadow palette releases, and even more so if they are limited edition and come in pretty packaging that makes our vanity table look extra gorgeous. These are five of the latest and hottest releases that you may have missed out!
+                </p>
+                <p class="mg-30-0 text-justify">
+                    Peach, lavender, chalky blue and blush pink – all were shades of sorbet and spun-sugar colour that dominated the faces of the models walking the spring/ summer runways. And if you know how to do it, it’s one of the season’s easiest (and prettiest) looks.
+                </p>
+            </div>
+            <div id="b5" class="blog-content" name="blog">
+                <h3>HOW CHEEKY - A GUIDE TO CHEEK MAKEUP AND BRUSHES</h3>
+                <small class="gray-content display-block">APRIL 29, 2020</small><br>
+                <img src="../assets/homepage-images/24.jpg" alt="image" class="blog-image" />
+                <p class="mg-30-0 text-justify">
+                    We all know the transformative powers of a swipe of blush, so let's explore the role of cheek makeup a little more deeply, how to choose the best type of cheek makeup for your complexion, and the best makeup brush for the job.
+                </p>
+                <p class="mg-30-0 text-justify">
+                    A former developer for a Japanese cosmetic brand and makeup specialist, provides her professional guidance.                 
+                </p>
+                <p class="mg-30-0 text-justify">    
+                    1. CREATE A VIVID, LIVELY APPEARANCE                
+                </p>
+                <p class="mg-30-0 text-justify">    
+                    Applying cheek as a final touch to your makeup add extra warmth to your face, if you like to go for cooler overall touch, use a darker shade of cheek.                
+                </p>
+                <p class="mg-30-0 text-justify"> 
+                    2. GIVE YOUR FACE MORE DEPTH                   
+                </p>
+                <p class="mg-30-0 text-justify">      
+                    Applying foundation does make your skin look smoother, but it can also make your face flat, or bigger because of the whiteness of the foundation. Adding an extra layer of color create a depth to your face and makes it look smaller in appearance.              
+                </p>
+                <p class="mg-30-0 text-justify"> 
+                    3. CHANGE THE OVERALL IMAGE WITH THE SMALLEST EFFORT                   
+                </p>
+                <p class="mg-30-0 text-justify">     
+                    Are you wearing the same makeup, no matter what clothes you wear? Most of us don’t have the fortune to own many types of makeup and just stick to one variation. But ideally, makeup should change according to what you wear and what occasion you are in. Have 2 or 3 extra colors of Cheek in your makeup arsenal, and choose it to match with your outfit of the day – if you’re wearing a light yellow colored shirt, try putting on the cheek with a hint of yellow. You’d be surprised how it fits together so well!               
+                </p>                
+            </div>
+            <div id="b6" class="blog-content" name="blog">
+                <h3>FRUIT PASTELS: SPRING MAKEUP TRENDS</h3>
+                <small class="gray-content display-block">APRIL 29, 2020</small><br>
+                <img src="../assets/homepage-images/9.jpg" alt="image" class="blog-image" />
+                <p class="mg-30-0 text-justify"> 
+                    Hold up, is that sunshine? Yes, spring is just around the corner and the time to rethink your beauty routine for the warmer weather is now.                   
+                </p>
+                <p class="mg-30-0 text-justify">  
+                    You may remember all of the felt-tipped pen eyeliners on the market, used to create black graphic lines in sometimes improbable shapes and thicknesses. Rather than a punk look, these black lines were more of a neo-Baroque or even neo-Daliesque design.                  
+                </p>
+                <p class="mg-30-0 text-justify">  
+                    Now, the pendulum has swung the other way. Mid-toned pastels -- the candy shell colors -- are being used all over the face: lips, blush, eyeshadow and especially new for this year, eyeliner. Application is much more amorphous than in seasons past. What's also gone? It appears that obvious definition for eyes and (maybe even) cheek and eye socket contouring. Is that infamous Kim Kardashian trademark look gone? As evidenced by the celebrity's new pink hair look and pastel makeup, it may very well be! Astute observers will point out that she's matching this understated look with pastel contacts, as her natural color is a deeper, more defined -- and therefore, harsher looking -- black-brown. Years before, Nicole Richie's lavender hair was way ahead of the trend. The brown shading under the cheekbones look seems to have gone by the wayside.                  
+                </p>
+                <p class="mg-30-0 text-justify">      
+                    Our magazine attributes this sea change as evolving from such color concepts as mermaid hair, the unicorn food phenomenon and "millennial pink". If you don't what shade that is, it started with a few corporate marketers using a pinky peachy beige salmon shade in ads that seems to be free from gender lines. It's not just about one color now -- it's the ombre, rainbow and psychedelic mixture that's so fresh.              
+                </p>
+            </div>
+
+            <div class="blog-sidebar">
+                <div class="text-center">
+                    <a id="blog_item_1" href="#b1" onclick="myFunction('0','')"><img onmouseover="changeImage('0')" onmouseout="original('0')" name="blog_list" class="blog-list"
+                            src="../assets/homepage-images/14.png" /></a>
+                    <a id="blog_item_2" href="#b2" onclick="myFunction('1','')"><img onmouseover="changeImage('1')" onmouseout="original('1')" name="blog_list" class="blog-list"
+                            src="../assets/homepage-images/15.png" /></a>
+                    <a id="blog_item_3" href="#b3" onclick="myFunction('2','')"><img onmouseover="changeImage('2')" onmouseout="original('2')" name="blog_list" class="blog-list"
+                            src="../assets/homepage-images/16.png" /></a>
+                    <a id="blog_item_4" href="#b4" onclick="myFunction('3','')"><img onmouseover="changeImage('3')" onmouseout="original('3')" name="blog_list" class="blog-list"
+                            src="../assets/homepage-images/23.png" /></a>
+                    <a id="blog_item_5" href="#b5" onclick="myFunction('4','')"><img onmouseover="changeImage('4')" onmouseout="original('4')" name="blog_list" class="blog-list"
+                            src="../assets/homepage-images/24.png" /></a>
+                    <a id="blog_item_6" href="#b6" onclick="myFunction('5','')"><img onmouseover="changeImage('5')" onmouseout="original('5')" name="blog_list" class="blog-list"
+                            src="../assets/homepage-images/32.jpg" /></a>
+                </div>
+            </div>
+            
+            <div>
+                <div class="container blog-comment-box">
+                    <div id="login-form">
+                        <form method="POST">
+                            <div class="form-group text-start">
+                                <input type="text" class="form-control blog-input" id="name" placeholder="Name"
+                                    name="name">
+                            </div>
+                            <div class="form-group text-start">
+                                <input type="email" class="form-control blog-input mg-l-2-perc" id="c-email"
+                                    placeholder="Enter email" name="email">
+                            </div>
+                            <div class="form-group text-start">
+                                <textarea class="form-control blog-comment" id="comment"
+                                    placeholder="Comments"></textarea>
+                            </div>
+                            <button type="button" onclick="addComment()" style="width: 100%;background-color: #222;"
+                                class="banner-button mg-tp-10">COMMENT</button>
+                        </form>
+                        <div id="message" class="display-none">All fields required</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="new-comment" style="width: 100%;" class="blog-sidebar"></div>
+
+
+            <div class="content10 footer-div col-md-12 col-sm-12 col-xs-12 no-padding ">
+                <div class="col-md-5 col-sm-5 col-xs-6 footer-content text-start">
+                    <div>THE BEAUTY STORE</div>
+                    <div class="footer-list"> <br>
+                        <p style="color: #33333382;">© THE BEAUTY STORE , Inc. All rights Resevered.</p>
+                    </div>
+                    <div class="footer-icons">
+                        <a><img src="../assets/homepage-icons/ic_insta.png" /></a>
+                        <a><img src="../assets/homepage-icons/ic_fb.png" /></a>
+                        <a><img src="../assets/homepage-icons/ic_twitter.png" /></a>
+                    </div>
+                </div>
+                <div id="footer-info" class="col-md-3 col-sm-3 col-xs-6 footer-content footer-text">
+                    <div>INFO</div>
+                    <div class="footer-list">
+                        <ul class="list-style">
+                            <li><a href="about.html" class="menu-option">About</a></li>
+                            <li><a href="contact.html" class="menu-option">Contact</a></li>
+                            <li><a href="privacy.html" class="menu-option">Privacy Policy</a></li>
+                            <li><a href="tnc.html" class="menu-option">Terms & Conditions</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12 footer-content text-end">
+                    <div class="text-end">SUBSCRIBE</div>
+                    <div class="footer-list">Sign up to our mailing list</div>
+                    <div class="footer-list">
+                        <input style="width: 80%;" class="text-input text-start" type="email" />
+                        <button style="width: 15%;" class="ok">OK</button>
+                    </div>
+                    <div class="footer-icons text-end">
+                        <a><img src="../assets/homepage-icons/ic_apple.png" /></a>
+                        <a><img src="../assets/homepage-icons/ic_visa.png" /></a>
+                        <a><img src="../assets/homepage-icons/ic_mastrcard.png" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <!--script files-->
+    <script src="../js/main.js"></script>
+    <script src="../js/search.js"></script>    
+    <script src="../js/comments.js"></script>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

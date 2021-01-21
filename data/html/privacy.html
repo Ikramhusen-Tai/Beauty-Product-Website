@@ -1,0 +1,478 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--title-->
+    <title>Privacy Policy | The Beauty Store</title>
+
+    <!--icon-->
+    <link href="../assets/tbs.ico" type="images/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--styles-->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body id="blogpage" class="body_div" style="margin: 0;">
+
+    <div>
+
+        <header id="header">
+
+            <div class="header1">
+                <div class="header-data">
+                    50% off on all skincare this weekend - Enter code TBS50
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 header2 no-padding">
+                <div class="title-2 col-md-4 col-sm-4 hidden-xs"><input type="text" id="searchInput"
+                    onkeyup="searchbar()" placeholder="Search for products.." title="Type in a name"></div>
+            <div class="title-2 col-md-4 col-sm-4 col-xs-10">The Beauty Store</div>
+            <div class="title-2 col-md-4 col-sm-4 col-xs-2 text-end">
+                <a name="loggedIn" onclick="options('user')" id="user-panel" style="color: #fff;"
+                    class="menu-list"><i style="font-size: 15px;" class="fa fa-user"></i></a>
+                <a name="loggedOut" data-toggle="modal" data-target="#myModal" style="color: #fff;"
+                    class="menu-list"><i style="font-size: 15px;" class="glyphicon glyphicon-log-in"></i></a>
+            </div>
+            <div class="title-2 show-on-xs col-xs-12"><input type="text" id="searchInput" onkeyup="searchbar()"
+                    placeholder="Search for products.." title="Type in a name">
+            </div>
+            <ul id="products" class="transform"></ul>
+
+                <!-- Modal -->
+                <div class="modal login-modal fade text-center" id="myModal" role="dialog">
+                    <div class="modal-dialog login-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <nav class="navbar navbar-inverse">
+                                <div class="container-fluid">
+                                    <ul class="nav navbar-nav navbar-left">
+                                        <li><a id="login-tab" class="active-tab" onclick="toggle('login')"><span
+                                                    class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                                        <li><a id="signup-tab" onclick="toggle('signup')"><span
+                                                    class="glyphicon glyphicon-user"></span> Register</a></li>
+                                    </ul>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li><a href="#" data-dismiss="modal"><span
+                                                    class="glyphicon glyphicon-remove"></span></a></li>
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="login_content_div">
+                                <div>
+                                    <div id="login-form">
+                                        <form method="POST">
+                                            <div class="form-group text-start">
+                                                <label for="email">Email:</label>
+                                                <input  type="email" class="form-control" id="email"
+                                                    placeholder="Enter email" name="email" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="pwd">Password:</label>
+                                                <input  type="password" class="form-control" id="password"
+                                                    placeholder="Enter password" name="pwd" required>
+                                            </div>
+                                            <button type="button" onclick="login()"
+                                                style="width: 100%;background-color: #222;"
+                                                class="banner-button mg-tp-10">LOGIN</button>
+                                            <div id="l_success_message" name="snackbar" class="hide-snackbar"></div>
+                                            <div id="l_error_message" name="snackbar" class="hide-snackbar"></div>
+                                        </form>
+                                    </div>
+                                    <div class="display-none" id="signup-form">
+                                        <form method="POST">
+                                            <div class="form-group text-start">
+                                                <input onclick="currentUser('admin')" type="radio" name="userType" required>
+                                                <label for="firstname">Admin</label>
+                                                <input onclick="currentUser('customer')" type="radio" name="userType" class="mg-l-12-perc" required>
+                                                <label for="firstname">Customer</label>
+                                            </div>
+                                            <div id="admin-options" style="display: none;" class="form-group text-start">
+                                                <input id="authKey" type="password" class="form-control" style="opacity: 0.5;" placeholder="Authorization Key" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="firstname">Firstname:</label>
+                                                <input type="text" class="form-control" id="firstname"
+                                                    placeholder="Firstname" name="firstname" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="lastname">Lastname:</label>
+                                                <input type="text" class="form-control" id="lastname"
+                                                    placeholder="Lastname" name="lastname" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="reg-email">Email:</label>
+                                                <input type="email" class="form-control" id="reg-email"
+                                                    placeholder="Enter email" name="reg-email" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="pass">Password:</label>
+                                                <input type="password" class="form-control" id="pass"
+                                                    placeholder="Enter password" name="pass" required>
+                                            </div>
+                                            <div class="form-group text-start">
+                                                <label for="cpass">Confirm Password:</label>
+                                                <input type="password" class="form-control" id="confirm-pass"
+                                                    placeholder="Confirm password" name="cpass" required>
+                                            </div>
+                                            <button type="button" onclick="register()"
+                                                style="width: 100%;background-color: #222;"
+                                                class="banner-button mg-tp-10">REGISTER</button>
+                                            <div id="s_success_message" name="snackbar" class="hide-snackbar"></div>
+                                            <div id="s_error_message" name="snackbar" class="hide-snackbar"></div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="loggedin-menu" name="loggedIn" class="menu text-center">
+                    <a href="../../Launch.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Home</a>
+                    <a onclick="options('catalogue')" class="menu-list col-md-3 col-sm-3 col-xs-3">Catalogue <i
+                            style="font-size: 15px;" class="fa fa-chevron-down"></i></a>
+                    <a href="../html/blog.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Blog</a>
+                    <a href="../html/cart.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Cart</a>
+                </div>
+                <div id="logout-menu" name="loggedOut" class="menu text-center">
+                    <a href="../../Launch.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Home</a>
+                    <a onclick="options('catalogue')" class="menu-list col-md-3 col-sm-3 col-xs-3">Catalogue <i
+                            style="font-size: 15px;" class="fa fa-chevron-down"></i></a>
+                    <a href="../html/blog.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Blog</a>
+                    <a class="menu-list col-md-3 col-sm-3 col-xs-3 isDisabled hover-link">Cart
+                        <p>login required!</p>
+                    </a>
+                </div>
+
+                <div id="user" class="transform">
+                    <ul class="menu-options text-start">
+                        <li class="pd-10-0"><a href="./profile.html" class="menu-option hover-white"><i style="font-size: 15px;"
+                                    class="fa fa-user-circle-o"></i> PROFILE</a></li>
+                        <li class="pd-10-0"><a class="menu-option hover-white" onclick="signout()"><i style="font-size: 15px;"
+                                    class="fa fa-sign-out"></i> LOGOUT</a></li>
+                    </ul>
+                </div>
+
+                <div id="catalogue" class="menu-open" style="display: none;">
+                    <ul class="menu-options">
+                        <li class="pd-10-0"><a href="./skincare.html" class="menu-option">SKIN CARE</a></li>
+                        <li class="pd-10-0"><a href="./makeup.html" class="menu-option">MAKEUP</a></li>
+                        <li class="pd-10-0"><a href="./haircare.html" class="menu-option">HAIR CARE</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </header>
+
+        <div class="faq">
+            <h2>PRIVACY POLICY</h2>
+        </div>
+
+        <button class="accordion">INTRODUCTION</button>
+        <div class="accordion-panel">
+            <p>
+                This is THE BEAUTY STORE privacy. It applies to this website, https://THE BEAUTY STORE.com.
+                As used in this Policy, the terms “you” “your,” and “yours” refers to you the user of
+                this Site or any other guest, person or entity who accesses or uses this Site or
+                services from the Site; and the terms “we,” “us,” “our,” or “ours” refers THE BEAUTY STORE
+                Social THE BEAUTY STORE..
+            </p>
+            <p>
+                “Personal Information” refers to information through which you can be identified. We
+                collect Personal Information that you provide voluntarily to us. Some examples of
+                Personal Information that we may collect include your name, date of birth, postal
+                address, e-mail address, telephone number, gender, gaming activity, and purchase and
+                reservation information. If you visit THE BEAUTY STORE Social THE BEAUTY STORE, Personal Information may
+                include your image in a live video feed that can be viewed on the THE BEAUTY STORE Web Sites.
+                Some Personal Information is considered “Confidential Personal Information”.
+                Confidential Personal Information is your name in combination with one or more of the
+                following: credit or debit card number, financial account number, driver’s license
+                number, state identification card number, passport number, and naturalization number.
+            </p>
+            <p>
+                In addition to Personal Information that you provide voluntarily to us, we may obtain
+                Personal Information from third parties including, but not limited to, business
+                partners, family members, friends, and entities that direct you to or are located on or
+                made available through the Site. In situations where your Personal Information is
+                collected by third parties under contract with us, we require these third parties
+                exercise reasonable care to protect your Personal Information and restrict the use of
+                your Personal Information to the purposes for which it was provided.
+            </p>
+            <p>
+                “Non-Personal Information” refers to information about you or your activities through
+                which you cannot be personally identified. When you use the Internet, your web browser
+                or software may transmit certain information to the servers that host the web sites you
+                visit. Such information may include, for example, the unique number assigned to your
+                server or Internet connection, your geographic location, and your interactions with the
+                Site, including what pages you view and what information you download. When you visit
+                the Site, your Non-Personal Information may be collected. Non- Personal Information may
+                be linked to Personal Information.
+            </p>
+            <p>
+                When you visit the Site, we use “cookies” and similar technologies to help us recognize
+                and serve you better. Cookies are small files that contain information sent by a web
+                site that is saved on your computer’s hard drive. Cookies enable us to gather data such
+                as web pages visited, links clicked, and material download. Cookies also are used to put
+                a unique identifier on your computer. This helps us to generate statistics regarding
+                usage of THE BEAUTY STORE Web Sites, such as the percentage of repeat visitors. In situations
+                where it is possible to do so, this unique identifier may be linked to Personal
+                Information.
+            </p>
+            <p>
+                There are different types of cookies including “browser” cookies (also known as html
+                cookies) and Flash cookies (also known as Local Shared Objects). You can configure your
+                browser to reject browser cookies or to notify you when browser cookies are offered so
+                that you can accept or reject such cookies. However, if you reject browser cookies, you
+                may not be able to conduct some transactions or use some services on the Site. However,
+                blocking or deleting browser cookies may not block or delete other types of cookies
+                including Flash cookies.
+            </p>
+            <p>
+                Third-party advertising companies that work with us may also use cookies and similar
+                technologies to collect Non-Personal information at the Site and other web sites for a
+                variety of purposes including providing you with advertisements that are likely to be of
+                interest to you. This type of ad customization is sometimes referred to as “behavioral
+                advertising.”
+            </p>
+        </div>
+
+        <button class="accordion">HOW WE USE THE INFORMATION WE COLLECT</button>
+        <div class="accordion-panel">
+            <p>
+                Except for Confidential Personal Information, we may use Personal Information and
+                Non-Personal Information for our own marketing purposes, including, but not limited to,
+                notifying you of special promotions, offers and events via postal mail, e-mail,
+                telephone, text message, and other means. Confidential Personal Information will not be
+                used for marketing purposes without your express consent.
+            </p>
+            <p>
+                We may also use Personal Information and Non-Personal Information for non-marketing
+                purposes. Some examples of such use include
+            </p>
+            <p>
+                (1) processing and fulfilling purchases;
+            </p>
+            <p>
+                (2) conducting statistical or demographic analysis;
+            </p>
+            <p>
+                (3) customizing your experience at the Site; and
+            </p>
+            <p>
+                (4) responding to your inquiries or other communications.
+            </p>
+            <p>
+                We may combine Personal Information with other generally or publicly available
+                information to help us identify your preferences or interests. Your Personal Information
+                may also be merged with Personal Information available from other sources such as
+            </p>
+            <p>
+                (1) companies that match e-mail addresses with postal addresses and other information;
+            </p>
+            <p>
+                (2) credit card verification and credit services; and
+            </p>
+            <p>
+                (3) other resorts, THE BEAUTY STOREs, or properties that are owned, operated, or affiliated with
+                THE BEAUTY STORE.
+            </p>
+            <p>
+                If you do not want us to use your Personal Information for marketing purposes, you may
+                opt-out of such uses by notifying us in accordance with Section III.A. below. Opting-out
+                will not prevent your Personal Information from being used for non-marketing purposes.
+            </p>
+            <p>
+                Sharing With Business Partners and Other Third Parties
+            </p>
+            <p>
+                Except for Confidential Personal Information, we may share your Personal Information
+                with our business partners for joint marketing efforts, or for our business partners’
+                own marketing purposes. When we provide Personal Information to our business partners,
+                we require them to exercise reasonable care to protect your Personal Information and
+                restrict the use of your Personal Information to the purposes for which it was provided
+                to them. If you do not want us to share your Personal Information with business partners
+                for marketing purposes, you may opt-out of such sharing by notifying us in accordance
+                with Section III.B. below.
+            </p>
+            <p>
+                Although you may request to opt-out of sharing Personal Information with our business
+                partners for marketing purposes, we may disclose Personal Information to our business
+                partners and other third parties for the following purposes:
+            </p>
+            <p>
+                for non-marketing purposes, such as processing and fulfilling reservations or purchases;
+                to comply with a court order, subpoena, search warrant or other valid legal process;
+                to comply with legal, regulatory or administrative requirements of any governmental
+                authorities;
+                to protect and defend us , or our affiliates, and all of their or our officers,
+                directors, employees, attorneys and agents in connection with any legal action, claim or
+                dispute;
+                to satisfy any contractual obligation to indemnify our contractors, business partners or
+                other third parties in connection with any legal action, claim or dispute;
+                to enforce the Terms of Use of the Site;
+                to prevent imminent physical harm or threats to public safety;
+                to prevent fraud;
+            </p>
+        </div>
+
+        <button class="accordion">YOUR COMMUNICATION PREFERENCES</button>
+        <div class="accordion-panel">
+            <p>
+                How to Opt-Out
+            </p>
+            <p>
+                If you wish to opt-out of receiving solicitations from us or do not want us to share
+                your Personal Information with our business partners for marketing purposes, please
+                email us at [email protected]
+            </p>
+        </div>
+
+        <button class="accordion">TELEMARKETING</button>
+        <div class="accordion-panel">
+            <p>
+                Even if you registered your telephone number on a Do-Not-Call list, certain exemptions
+                may allow us to contact you by telephone. However, to ensure our customers’ preferences
+                are honored, we also maintain our own internal do-not-call list. If you would like to
+                opt-out of receiving telemarketing sales calls from us by adding your telephone number
+                to our internal do-not-call list, please email us at [email protected]
+            </p>
+        </div>
+
+        <button class="accordion">SECURITY</button>
+        <div class="accordion-panel">
+            <p>
+                Personal Information and Non-Personal Information collected by us are stored on secure
+                servers, which are protected by firewalls and other industry standard security measures.
+                These security measures are intended to protect our servers from unauthorized access.
+                However, no security system is impenetrable, and these systems could become accessible
+                in the event of a security breach. We have controls in place that are designed to detect
+                potential data breaches, contain and minimize the loss of data, and conduct forensic
+                investigations of a breach.
+            </p>
+            <p>
+                Our staff is required to take reasonable measures to ensure that unauthorized persons
+                cannot view or access your Personal Information. Employees who violate our privacy
+                policies are subject to disciplinary action, up to and including termination.
+            </p>
+            <p>
+                We cannot enforce or control the security of the computers, electronic devices, or
+                electronic communication method that you may use to send e-mails and submit information
+                to us over the Internet. You are responsible for ensuring that the computers, electronic
+                devices and electronic communication methods you use will provide adequate security for
+                communicating with us. We are not responsible for the disclosure or interception of
+                information that you send us before we receive it.
+            </p>
+            <p>
+                As a standard security practice, we will take reasonable steps which are standard in the
+                industry to ensure that the communication methods used to support the Site does not
+                permit connection or communication by methods that have known security weaknesses or
+                vulnerabilities. As such, if you experience trouble using the Site, it may be an
+                indication that you need to upgrade your Internet browsing tool or application to a
+                newer version that supports more secure communication methods.
+            </p>
+        </div>
+
+        <button class="accordion">RESPONSIBLE GAMING PROGRAM</button>
+        <div class="accordion-panel">
+            <p>
+                THE BEAUTY STORE adheres to its Code of Conduct for Responsible Gaming. Accordingly, we will
+                not use the Personal Information of members of Self-Limit Access Programs for any
+                marketing purposes.
+            </p>
+        </div>
+
+        <button class="accordion">OTHER WEB SITES</button>
+        <div class="accordion-panel">
+            <p>
+                We are not responsible for the information collection or privacy practices of other web
+                sites, including web sites operated by our business partners or other third parties. You
+                should review and understand the privacy policies posted on any linked sites you visit
+                before using those sites or providing any Personal Information.
+            </p>
+        </div>
+
+        <button class="accordion">PERSONS UNDER AGES 18 AND 21</button>
+        <div class="accordion-panel">
+            <p>
+                Certain of our areas and activities are intended for persons 21 or older. If you are
+                under 21, we ask that you do not access or attempt to access any areas or participate in
+                any activities that are restricted to persons 21 or older. We do not knowingly collect
+                or allow the collection of Personal Information from persons under 18. If you are the
+                parent or guardian of a person under 18 and believe that the person has provided us with
+                Personal Information, you may email us at [email protected]
+            </p>
+        </div>
+
+        <button class="accordion">CHANGES TO THIS POLICY</button>
+        <div class="accordion-panel">
+            <p>
+                We reserve the right to revise this Policy at any time without notice. When this Policy
+                is revised in a material way, notice will be posted on the Site along with the revised
+                Policy.
+            </p>
+        </div>
+
+        <button class="accordion">CONTACT US</button>
+        <div class="accordion-panel">
+            <p>
+                You may forward any question or concern regarding this Privacy Policy or the use and
+                disclosure of Personal Information to THE BEAUTY STORE Interactive Privacy Officer either by
+                mail, or E-mail as follows: [email protected]
+            </p>
+        </div>
+
+        <div class="content10 footer-div col-md-12 col-sm-12 col-xs-12 no-padding ">
+            <div class="col-md-5 col-sm-5 col-xs-6 footer-content text-start">
+                <div>THE BEAUTY STORE</div>
+                <div class="footer-list"> <br>
+                    <p style="color: #33333382;">© THE BEAUTY STORE , Inc. All rights Resevered.</p>
+                </div>
+                <div class="footer-icons">
+                    <a><img src="../assets/homepage-icons/ic_insta.png" /></a>
+                    <a><img src="../assets/homepage-icons/ic_fb.png" /></a>
+                    <a><img src="../assets/homepage-icons/ic_twitter.png" /></a>
+                </div>
+            </div>
+            <div id="footer-info" class="col-md-3 col-sm-3 col-xs-6 footer-content footer-text">
+                <div>INFO</div>
+                <div class="footer-list">
+                    <ul class="list-style">
+                        <li><a href="about.html" class="menu-option">About</a></li>
+                        <li><a href="contact.html" class="menu-option">Contact</a></li>
+                        <li><a href="privacy.html" class="menu-option">Privacy Policy</a></li>
+                        <li><a href="tnc.html" class="menu-option">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 footer-content text-end">
+                <div class="text-end">SUBSCRIBE</div>
+                <div class="footer-list">Sign up to our mailing list</div>
+                <div class="footer-list">
+                    <input style="width: 80%;" class="text-input text-start" type="email" />
+                    <button style="width: 15%;" class="ok">OK</button>
+                </div>
+                <div class="footer-icons text-end">
+                    <a><img src="../assets/homepage-icons/ic_apple.png" /></a>
+                    <a><img src="../assets/homepage-icons/ic_visa.png" /></a>
+                    <a><img src="../assets/homepage-icons/ic_mastrcard.png" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!--script files-->
+    <script src="../js/main.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--title-->
+    <title>Profile | The Beauty Store</title>
+
+    <!--icon-->
+    <link href="../assets/tbs.ico" type="images/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--styles-->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body onload="profileActions('profile')" id="profilepage" class="body_div" style="margin: 0;">
+
+    <div>
+
+        <header id="header">
+
+            <div class="header1">
+                <div class="header-data">
+                    50% off on all skincare this weekend - Enter code TBS50
+                </div>
+            </div>
+
+            <div id="header-section" class="col-md-12 col-sm-12 col-xs-12 header2 no-padding">
+                <div class="title-2 col-md-4 col-sm-4 hidden-xs"><input type="text" id="searchInput"
+                    onkeyup="searchbar()" placeholder="Search for products.." title="Type in a name"></div>
+            <div class="title-2 col-md-4 col-sm-4 col-xs-10">The Beauty Store</div>
+            <div class="title-2 col-md-4 col-sm-4 col-xs-2 text-end">
+                <a name="loggedIn" onclick="options('user')" id="user-panel" style="color: #fff;"
+                    class="menu-list"><i style="font-size: 15px;" class="fa fa-user"></i></a>
+                <a name="loggedOut" data-toggle="modal" data-target="#myModal" style="color: #fff;"
+                    class="menu-list"><i style="font-size: 15px;" class="glyphicon glyphicon-log-in"></i></a>
+            </div>
+            <div class="title-2 show-on-xs col-xs-12"><input type="text" id="searchInput" onkeyup="searchbar()"
+                    placeholder="Search for products.." title="Type in a name">
+            </div>
+            <ul id="products" class="transform"></ul>
+
+                
+                <div id="loggedin-menu" name="loggedIn" class="menu text-center">
+                    <a href="../../Launch.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Home</a>
+                    <a onclick="options('catalogue')" class="menu-list col-md-3 col-sm-3 col-xs-3">Catalogue <i
+                            style="font-size: 15px;" class="fa fa-chevron-down"></i></a>
+                    <a href="../html/blog.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Blog</a>
+                    <a href="../html/cart.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Cart</a>
+                </div>
+                <div id="logout-menu" name="loggedOut" class="menu text-center">
+                    <a href="../../Launch.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Home</a>
+                    <a onclick="options('catalogue')" class="menu-list col-md-3 col-sm-3 col-xs-3">Catalogue <i
+                            style="font-size: 15px;" class="fa fa-chevron-down"></i></a>
+                    <a href="../html/blog.html" class="menu-list col-md-3 col-sm-3 col-xs-3">Blog</a>
+                    <a class="menu-list col-md-3 col-sm-3 col-xs-3 isDisabled hover-link">Cart
+                        <p>login required!</p>
+                    </a>
+                </div>
+
+                <div id="user" class="transform">
+                    <ul class="menu-options text-start">
+                        <li class="pd-10-0"><a href="./profile.html" class="menu-option hover-white"><i style="font-size: 15px;"
+                                    class="fa fa-user-circle-o"></i> PROFILE</a></li>
+                        <li class="pd-10-0"><a class="menu-option hover-white" onclick="signout()"><i style="font-size: 15px;"
+                                    class="fa fa-sign-out"></i> LOGOUT</a></li>
+                    </ul>
+                </div>
+
+                <div id="catalogue" class="menu-open" style="display: none;">
+                    <ul class="menu-options">
+                        <li class="pd-10-0"><a href="./skincare.html" class="menu-option">SKIN CARE</a></li>
+                        <li class="pd-10-0"><a href="./makeup.html" class="menu-option">MAKEUP</a></li>
+                        <li class="pd-10-0"><a href="./haircare.html" class="menu-option">HAIR CARE</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </header>
+
+
+        <div class="texture-background">
+            <div class="profile-options">
+                <button onclick="profileActions('profile')" name="profile-btns" class="profile-buttons">Profile</button>
+                <button onclick="profileActions('forgot')" name="profile-btns" class="profile-buttons">Forgot Password</button>
+                <button onclick="profileActions('change')" name="profile-btns" class="profile-buttons">Change Password</button>
+                <button onclick="profileActions('delete')" name="profile-btns" class="profile-buttons">Delete Account</button>
+                <button onclick="profileActions('home')" name="profile-btns" class="profile-buttons"><a>Homepage</a></button>
+            </div>
+            <div class="profile-main">                
+                <div id="user-profile-info" class="profile-content">
+                    <div style="width: 35%;">
+                        <img id="profile-image" name="userProfile" width="100%"/>  
+                        <input type="file" onchange="getProfilePic(this)" class="form-control" id="profile-pic" accept="image/*">                                              
+                    </div>
+                    <div style="width: 100%;text-align: end;">
+                        <h4 name="userProfile"></h4>
+                        <p name="userProfile"></p>
+                        <p id="change-pic" class="text-end"><a onclick="changePic()">Change Photo
+                            <input id="change-opt" style="display: none;width: 90%;margin-left: 10%;" type="file" onchange="getProfilePic(this)" id="change-pic" class="form-control" accept="image/*">
+                        </a></p>
+                    </div>
+                </div>
+                <div style="display: none;" id="forgot-pwd" class="profile-content">
+                    <h4 style="text-decoration: underline;">Forgot Password?</h4>
+                    <p><a>Click here</a> to get a password recovery link on your registered email.</p>
+                </div>
+                <div style="display: none;" id="change-pwd" class="profile-content">
+                    <input type="password" name="profile-password" class="pwd-fields" placeholder="Current Password"/>
+                    <input type="password" name="profile-password" class="pwd-fields" placeholder="New Password"/>
+                    <input type="password" name="profile-password" class="pwd-fields" placeholder="Confirm New Password"/>
+                    <button onclick="changePassword()" class="profile-action-btn">Confirm</button>
+                </div>
+                <div style="display: none;" id="delete-account" class="profile-content">
+                    <h4 style="text-decoration: underline;">Are You Sure?</h4>
+                    <p>You won't be able to login to this account anymore.</p>
+                    <input id="pwdToDelete" type="password" class="pwd-fields" placeholder="Enter Password"/>
+                    <button onclick="deleteAccount()" class="profile-action-btn">Delete Account</button>
+                </div>
+                <div>
+                    <video autoplay muted loop id="home-video" style="width: 100%;border-radius: 10px;">
+                        <source src="../assets/video.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="content10 footer-div col-md-12 col-sm-12 col-xs-12 no-padding ">
+            <div class="col-md-5 col-sm-5 col-xs-6 footer-content text-start">
+                <div>THE BEAUTY STORE</div>
+                <div class="footer-list"> <br>
+                    <p style="color: #33333382;">© THE BEAUTY STORE , Inc. All rights Resevered.</p>
+                </div>
+                <div class="footer-icons">
+                    <a><img src="../assets/homepage-icons/ic_insta.png" /></a>
+                    <a><img src="../assets/homepage-icons/ic_fb.png" /></a>
+                    <a><img src="../assets/homepage-icons/ic_twitter.png" /></a>
+                </div>
+            </div>
+            <div id="footer-info" class="col-md-3 col-sm-3 col-xs-6 footer-content footer-text">
+                <div>INFO</div>
+                <div class="footer-list">
+                    <ul class="list-style">
+                        <li><a href="about.html" class="menu-option">About</a></li>
+                        <li><a href="contact.html" class="menu-option">Contact</a></li>
+                        <li><a href="privacy.html" class="menu-option">Privacy Policy</a></li>
+                        <li><a href="tnc.html" class="menu-option">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 footer-content text-end">
+                <div class="text-end">SUBSCRIBE</div>
+                <div class="footer-list">Sign up to our mailing list</div>
+                <div class="footer-list">
+                    <input style="width: 80%;" class="text-input text-start" type="email" />
+                    <button style="width: 15%;" class="ok">OK</button>
+                </div>
+                <div class="footer-icons text-end">
+                    <a><img src="../assets/homepage-icons/ic_apple.png" /></a>
+                    <a><img src="../assets/homepage-icons/ic_visa.png" /></a>
+                    <a><img src="../assets/homepage-icons/ic_mastrcard.png" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <style>
+        a {
+            color: rgb(216, 186, 191);
+        }
+        a:hover {
+            color: rgb(235, 146, 161);
+        }
+    </style>
+
+    <!--script files-->
+    <script src="../js/main.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

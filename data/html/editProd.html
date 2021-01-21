@@ -1,0 +1,129 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--title-->
+    <title>Product Edit | The Beauty Store</title>
+
+    <!--icon-->
+    <link href="../assets/tbs.ico" type="images/x-icon" rel="shortcut icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--styles-->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+
+<body onload="getProduct()" id="blogpage" class="body_div" style="margin: 0;">
+
+    <div>
+
+        <header id="header">
+
+            <div class="header1">
+                <div class="header-data">
+                    50% off on all skincare this weekend - Enter code TBS50
+                </div>
+            </div>
+
+            <div style="height: max-content;" class="col-md-12 col-sm-12 col-xs-12 header2 no-padding">
+                <div class="title-3 col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4 col-xs-10">The Beauty Store</div>
+                <div style="background: rgb(233, 229, 229);" class="title-2 col-md-4 col-sm-4 col-xs-2 text-end">
+                    <a name="loggedIn" onclick="options('user')" id="user-panel" style="color: #fff;"
+                        class="menu-list"><i style="font-size: 15px;color: #333;" class="fa fa-user"></i></a>
+                </div>
+
+                <div class="goBack"><a href="../html/admin.html"><i class="fa fa-arrow-left"></i></a></div>
+
+                <div id="user" class="transform">
+                    <ul class="menu-options text-start">
+                        <li class="pd-10-0"><a href="./profile.html" class="menu-option hover-white"><i
+                                    style="font-size: 15px;" class="fa fa-user-circle-o"></i> PROFILE</a></li>
+                        <li class="pd-10-0"><a class="menu-option hover-white" onclick="signout()"><i
+                                    style="font-size: 15px;" class="fa fa-sign-out"></i> LOGOUT</a></li>
+                    </ul>
+                </div>
+
+                <div id="catalogue" class="menu-open" style="display: none;">
+                    <ul class="menu-options">
+                        <li class="pd-10-0"><a href="./skincare.html" class="menu-option">SKIN CARE</a></li>
+                        <li class="pd-10-0"><a href="./makeup.html" class="menu-option">MAKEUP</a></li>
+                        <li class="pd-10-0"><a href="./haircare.html" class="menu-option">HAIR CARE</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </header>
+
+        <div id="product-view" class="allProducts">
+            <div class="col-md-4 col-sm-5 col-xs-5 col-md-offset-2 col-sm-offset-1 col-xs-offset-1 product-link">
+                <img id="product-image" class="product-view" src="" width="auto"/>
+            </div>
+            <div id="product-heading" class="col-md-4 col-sm-5 col-xs-5 product-link text-end"></div>
+            <div class="col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1">
+            </div>
+            <div class="col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1 product-details">
+                <h4 id="product-explain" class="product-explain"></h4>
+            </div>
+            <div class="col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1 product-details">
+                <img id="product-image"  name="userProfile" width="100%"/>
+                <label>Update Image</label>
+                <input type="file" onchange="editProduct(this,'image')" id="update-pic" accept="image/*"><br><br>
+                <input id="new-heading" type="text" class="form-control" placeholder="Update Title"/>
+                <input id="new-price" type="number" class="form-control" placeholder="Update Price"/>
+                <textarea id="new-details" type="text" class="form-control edit-details" placeholder="Update Details"></textarea>
+                <button onclick="editProduct('update','all')" style="margin: 10px 0;border: 1px solid #00000021;outline: none;">UPDATE PRODUCT</button>
+            </div>
+        </div>
+
+        <div class="content10 footer-div col-md-12 col-sm-12 col-xs-12 no-padding ">
+            <div class="col-md-5 col-sm-5 col-xs-6 footer-content text-start">
+                <div>THE BEAUTY STORE</div>
+                <div class="footer-list"> <br>
+                    <p style="color: #33333382;">© THE BEAUTY STORE , Inc. All rights Resevered.</p>
+                </div>
+                <div class="footer-icons">
+                    <a><img src="../assets/homepage-icons/ic_insta.png" /></a>
+                    <a><img src="../assets/homepage-icons/ic_fb.png" /></a>
+                    <a><img src="../assets/homepage-icons/ic_twitter.png" /></a>
+                </div>
+            </div>
+            <div id="footer-info" class="col-md-3 col-sm-3 col-xs-6 footer-content footer-text">
+                <div>INFO</div>
+                <div class="footer-list">
+                    <ul class="list-style">
+                        <li><a href="about.html" class="menu-option">About</a></li>
+                        <li><a href="contact.html" class="menu-option">Contact</a></li>
+                        <li><a href="privacy.html" class="menu-option">Privacy Policy</a></li>
+                        <li><a href="tnc.html" class="menu-option">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 footer-content text-end">
+                <div class="text-end">SUBSCRIBE</div>
+                <div class="footer-list">Sign up to our mailing list</div>
+                <div class="footer-list">
+                    <input style="width: 80%;" class="text-input text-start" type="email" />
+                    <button style="width: 15%;" class="ok">OK</button>
+                </div>
+                <div class="footer-icons text-end">
+                    <a><img src="../assets/homepage-icons/ic_apple.png" /></a>
+                    <a><img src="../assets/homepage-icons/ic_visa.png" /></a>
+                    <a><img src="../assets/homepage-icons/ic_mastrcard.png" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!--script files-->
+    <script src="../js/main.js"></script>
+    <script src="../js/products.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
